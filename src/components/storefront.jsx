@@ -5,81 +5,22 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import type { FormEvent, ReactNode } from "react";
+
 import { Link, useLocation } from "react-router";
 
 import "./storefront.css";
 
-export type Product = {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  category: string;
-};
-
-export const products: Product[] = [
-  {
-    id: 1,
-    title: "Крісло Royal Velvet",
-    price: 5600,
-    image:
-      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=900&q=85",
-    category: "Вітальня",
-  },
-  {
-    id: 2,
-    title: "Диван Scandi Gray",
-    price: 15900,
-    image:
-      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85",
-    category: "Вітальня",
-  },
-  {
-    id: 3,
-    title: "Торшер Industrial",
-    price: 2400,
-    image:
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=900&q=85",
-    category: "Освітлення",
-  },
-  {
-    id: 4,
-    title: "Стіл Oak Wood",
-    price: 8900,
-    image:
-      "https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=900&q=85",
-    category: "Столи",
-  },
-  {
-    id: 5,
-    title: "Ліжко King Size",
-    price: 22000,
-    image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900&q=85",
-    category: "Спальня",
-  },
-  {
-    id: 6,
-    title: "Ваза Ceramic Art",
-    price: 1200,
-    image:
-      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=900&q=85",
-    category: "Декор",
-  },
+// Відновлений масив товарів (ти випадково видалив його разом із типом)
+export const products = [
+  { id: 1, title: "Крісло Bjorn", category: "Вітальня", price: 4200, image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80" },
+  { id: 2, title: "Лампа Nude", category: "Освітлення", price: 1200, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80" },
+  { id: 3, title: "Стіл Oak", category: "Столи", price: 8500, image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800&q=80" },
+  { id: 4, title: "Полиця Grid", category: "Вітальня", price: 1800, image: "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?w=800&q=80" },
+  { id: 5, title: "Ліжко Cloud", category: "Спальня", price: 14000, image: "https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80" },
+  { id: 6, title: "Ваза Stone", category: "Декор", price: 900, image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&q=80" },
 ];
 
-type StoreContextValue = {
-  cart: Product[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (id: number) => void;
-  openCart: () => void;
-  user: string | null;
-  openLogin: () => void;
-  logout: () => void;
-};
-
-const StoreContext = createContext<StoreContextValue | null>(null);
+const StoreContext = createContext(null);
 
 export function useStorefront() {
   const value = useContext(StoreContext);
@@ -88,15 +29,15 @@ export function useStorefront() {
   return value;
 }
 
-export function StorefrontShell({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<Product[]>([]);
+export function StorefrontShell({ children }) {
+  const [cart, setCart] = useState([]);
   const [cartReady, setCartReady] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
 
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState(null);
   const [loginOpen, setLoginOpen] = useState(false);
 
   const location = useLocation();
@@ -105,7 +46,7 @@ export function StorefrontShell({ children }: { children: ReactNode }) {
     const savedCart = window.localStorage.getItem("superFurnCart");
     if (savedCart) {
       try {
-        setCart(JSON.parse(savedCart) as Product[]);
+        setCart(JSON.parse(savedCart));
       } catch {
         window.localStorage.removeItem("superFurnCart");
       }
@@ -128,7 +69,7 @@ export function StorefrontShell({ children }: { children: ReactNode }) {
     setOrderPlaced(false);
   }, [location.pathname]);
 
-  const value = useMemo<StoreContextValue>(
+  const value = useMemo(
     () => ({
       cart,
       addToCart: (product) =>
@@ -155,7 +96,7 @@ export function StorefrontShell({ children }: { children: ReactNode }) {
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
-  function submitOrder(event: FormEvent<HTMLFormElement>) {
+  function submitOrder(event) {
     event.preventDefault();
     setOrderTotal(total);
     setCart([]);
@@ -163,10 +104,10 @@ export function StorefrontShell({ children }: { children: ReactNode }) {
     setOrderPlaced(true);
   }
 
-  function handleLogin(event: FormEvent<HTMLFormElement>) {
+  function handleLogin(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const username = (formData.get("username") as string) || "Користувач";
+    const username = formData.get("username") || "Користувач";
     setUser(username);
     window.localStorage.setItem("superFurnUser", username);
     setLoginOpen(false);
@@ -431,9 +372,9 @@ function StoreHeader() {
             className="store-cart-trigger"
             type="button"
             onClick={openCart}
-            aria-label={`Ваш кошик, ${cart.length} товарів`}
+            aria-label={`Ваш кошик, ${cart?.length || 0} товарів`}
           >
-            Кошик <span>{cart.length}</span>
+            Кошик <span>{cart?.length || 0}</span>
           </button>
           {user ? (
             <button className="store-account" type="button" onClick={logout}>
@@ -665,6 +606,6 @@ export function StorefrontInspirationPage() {
   );
 }
 
-export function formatPrice(price: number) {
+export function formatPrice(price) {
   return `${price.toLocaleString("uk-UA")} ₴`;
 }
