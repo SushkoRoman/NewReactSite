@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types, react/no-unescaped-entities */
 import React, {
   createContext,
   useContext,
@@ -12,12 +13,54 @@ import "./storefront.css";
 
 // Відновлений масив товарів (ти випадково видалив його разом із типом)
 export const products = [
-  { id: 1, title: "Крісло Bjorn", category: "Вітальня", price: 4200, image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80" },
-  { id: 2, title: "Лампа Nude", category: "Освітлення", price: 1200, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80" },
-  { id: 3, title: "Стіл Oak", category: "Столи", price: 8500, image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800&q=80" },
-  { id: 4, title: "Полиця Grid", category: "Вітальня", price: 1800, image: "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?w=800&q=80" },
-  { id: 5, title: "Ліжко Cloud", category: "Спальня", price: 14000, image: "https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80" },
-  { id: 6, title: "Ваза Stone", category: "Декор", price: 900, image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&q=80" },
+  {
+    id: 1,
+    title: "Крісло Bjorn",
+    category: "Вітальня",
+    price: 4200,
+    image:
+      "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80",
+  },
+  {
+    id: 2,
+    title: "Лампа Nude",
+    category: "Освітлення",
+    price: 1200,
+    image:
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80",
+  },
+  {
+    id: 3,
+    title: "Стіл Oak",
+    category: "Столи",
+    price: 8500,
+    image:
+      "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800&q=80",
+  },
+  {
+    id: 4,
+    title: "Полиця Grid",
+    category: "Вітальня",
+    price: 1800,
+    image:
+      "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?w=800&q=80",
+  },
+  {
+    id: 5,
+    title: "Ліжко Cloud",
+    category: "Спальня",
+    price: 14000,
+    image:
+      "https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80",
+  },
+  {
+    id: 6,
+    title: "Ваза Stone",
+    category: "Декор",
+    price: 900,
+    image:
+      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&q=80",
+  },
 ];
 
 const StoreContext = createContext(null);
