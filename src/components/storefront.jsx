@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types, react/no-unescaped-entities */
 import React, {
   createContext,
   useContext,
@@ -6,60 +5,57 @@ import React, {
   useMemo,
   useState,
 } from "react";
-
 import { Link, useLocation } from "react-router";
-
 import "./storefront.css";
 
-// Відновлений масив товарів (ти випадково видалив його разом із типом)
-export const products = [
+const products = [
   {
     id: 1,
-    title: "Крісло Bjorn",
-    category: "Вітальня",
-    price: 4200,
+    title: "Крісло Royal Velvet",
+    price: 5600,
     image:
-      "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80",
+      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=900&q=85",
+    category: "Вітальня",
   },
   {
     id: 2,
-    title: "Лампа Nude",
-    category: "Освітлення",
-    price: 1200,
+    title: "Диван Scandi Gray",
+    price: 15900,
     image:
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80",
+      "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85",
+    category: "Вітальня",
   },
   {
     id: 3,
-    title: "Стіл Oak",
-    category: "Столи",
-    price: 8500,
+    title: "Торшер Industrial",
+    price: 2400,
     image:
-      "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800&q=80",
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=900&q=85",
+    category: "Освітлення",
   },
   {
     id: 4,
-    title: "Полиця Grid",
-    category: "Вітальня",
-    price: 1800,
+    title: "Стіл Oak Wood",
+    price: 8900,
     image:
-      "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?w=800&q=80",
+      "https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=900&q=85",
+    category: "Столи",
   },
   {
     id: 5,
-    title: "Ліжко Cloud",
-    category: "Спальня",
-    price: 14000,
+    title: "Ліжко King Size",
+    price: 22000,
     image:
-      "https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900&q=85",
+    category: "Спальня",
   },
   {
     id: 6,
-    title: "Ваза Stone",
-    category: "Декор",
-    price: 900,
+    title: "Ваза Ceramic Art",
+    price: 1200,
     image:
-      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&q=80",
+      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=900&q=85",
+    category: "Декор",
   },
 ];
 
@@ -67,8 +63,9 @@ const StoreContext = createContext(null);
 
 export function useStorefront() {
   const value = useContext(StoreContext);
-  if (!value)
+  if (!value) {
     throw new Error("Storefront components must be inside StorefrontShell");
+  }
   return value;
 }
 
@@ -79,10 +76,6 @@ export function StorefrontShell({ children }) {
   const [checkout, setCheckout] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
-
-  const [user, setUser] = useState(null);
-  const [loginOpen, setLoginOpen] = useState(false);
-
   const location = useLocation();
 
   useEffect(() => {
@@ -94,16 +87,13 @@ export function StorefrontShell({ children }) {
         window.localStorage.removeItem("superFurnCart");
       }
     }
-    const savedUser = window.localStorage.getItem("superFurnUser");
-    if (savedUser) {
-      setUser(savedUser);
-    }
     setCartReady(true);
   }, []);
 
   useEffect(() => {
-    if (cartReady)
+    if (cartReady) {
       window.localStorage.setItem("superFurnCart", JSON.stringify(cart));
+    }
   }, [cart, cartReady]);
 
   useEffect(() => {
@@ -127,14 +117,8 @@ export function StorefrontShell({ children }) {
         setOrderPlaced(false);
         setCartOpen(true);
       },
-      user,
-      openLogin: () => setLoginOpen(true),
-      logout: () => {
-        setUser(null);
-        window.localStorage.removeItem("superFurnUser");
-      },
     }),
-    [cart, user],
+    [cart],
   );
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -145,15 +129,6 @@ export function StorefrontShell({ children }) {
     setCart([]);
     setCheckout(false);
     setOrderPlaced(true);
-  }
-
-  function handleLogin(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const username = formData.get("username") || "Користувач";
-    setUser(username);
-    window.localStorage.setItem("superFurnUser", username);
-    setLoginOpen(false);
   }
 
   return (
@@ -168,8 +143,8 @@ export function StorefrontShell({ children }) {
             style={{
               position: "fixed",
               inset: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.55)",
               zIndex: 100,
+              background: "rgba(0,0,0,0.5)",
               display: "flex",
               justifyContent: "flex-end",
             }}
@@ -179,20 +154,30 @@ export function StorefrontShell({ children }) {
             }}
           >
             <div
-              className="store-cart-sheet"
               style={{
-                width: "100%",
-                maxWidth: "420px",
+                width: "420px",
+                maxWidth: "100%",
+                background: "#fff",
                 height: "100%",
-                padding: "28px",
+                padding: "24px",
                 display: "flex",
                 flexDirection: "column",
+                boxSizing: "border-box",
                 overflowY: "auto",
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="store-cart-head">
-                <h2>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <h2
+                  style={{ fontSize: "20px", margin: 0, fontFamily: "serif" }}
+                >
                   {checkout
                     ? "Оформлення замовлення"
                     : orderPlaced
@@ -200,12 +185,14 @@ export function StorefrontShell({ children }) {
                       : "Ваш кошик"}
                 </h2>
                 <button
-                  type="button"
-                  className="store-close"
-                  aria-label="Закрити"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                  }}
                   onClick={() => {
                     setCartOpen(false);
-                    setCheckout(false);
                     setOrderPlaced(false);
                   }}
                 >
@@ -214,8 +201,15 @@ export function StorefrontShell({ children }) {
               </div>
 
               {orderPlaced ? (
-                <div className="store-order-success">
-                  <span className="success-mark" aria-hidden="true">
+                <div style={{ textAlign: "center", marginTop: "40px" }}>
+                  <span
+                    style={{
+                      fontSize: "48px",
+                      color: "#2e7d32",
+                      display: "block",
+                      marginBottom: "16px",
+                    }}
+                  >
                     ✓
                   </span>
                   <h3>Дякуємо за замовлення</h3>
@@ -274,9 +268,8 @@ export function StorefrontShell({ children }) {
                   </button>
                 </form>
               ) : cart.length === 0 ? (
-                <div className="store-empty-cart">
-                  <span className="store-empty-bag" aria-hidden="true" />
-                  <p>Кошик порожній</p>
+                <div style={{ textAlign: "center", marginTop: "40px" }}>
+                  <p style={{ color: "#666" }}>Кошик порожній</p>
                   <button
                     className="store-button store-button-dark"
                     type="button"
@@ -287,15 +280,57 @@ export function StorefrontShell({ children }) {
                 </div>
               ) : (
                 <>
-                  <div className="store-cart-items">
+                  <div
+                    style={{
+                      flex: 1,
+                      overflowY: "auto",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "12px",
+                    }}
+                  >
                     {cart.map((item) => (
-                      <div className="store-cart-item" key={item.id}>
-                        <img src={item.image} alt="" />
-                        <div>
-                          <h3>{item.title}</h3>
-                          <p>{formatPrice(item.price)}</p>
+                      <div
+                        key={item.id}
+                        style={{
+                          display: "flex",
+                          gap: "12px",
+                          borderBottom: "1px solid #eee",
+                          paddingBottom: "12px",
+                        }}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          style={{
+                            width: "60px",
+                            height: "60px",
+                            objectFit: "cover",
+                            borderRadius: "4px",
+                          }}
+                        />
+                        <div style={{ flex: 1 }}>
+                          <h3 style={{ fontSize: "14px", margin: "0 0 4px 0" }}>
+                            {item.title}
+                          </h3>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              color: "#666",
+                              margin: "0 0 8px 0",
+                            }}
+                          >
+                            {formatPrice(item.price)}
+                          </p>
                           <button
-                            className="text-button remove-button"
+                            style={{
+                              background: "none",
+                              border: "none",
+                              color: "#d9534f",
+                              fontSize: "12px",
+                              cursor: "pointer",
+                              padding: 0,
+                            }}
                             type="button"
                             onClick={() => value.removeFromCart(item.id)}
                           >
@@ -305,9 +340,22 @@ export function StorefrontShell({ children }) {
                       </div>
                     ))}
                   </div>
-                  <div className="store-cart-bottom">
-                    <div className="checkout-total">
-                      <span>Разом</span>
+                  <div
+                    style={{
+                      borderTop: "1px solid #eee",
+                      paddingTop: "16px",
+                      marginTop: "16px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: "16px",
+                        fontSize: "16px",
+                      }}
+                    >
+                      <span>Разом:</span>
                       <strong>{formatPrice(total)}</strong>
                     </div>
                     <button
@@ -323,70 +371,16 @@ export function StorefrontShell({ children }) {
             </div>
           </div>
         )}
-
-        {loginOpen && (
-          <div
-            style={{
-              position: "fixed",
-              inset: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.55)",
-              zIndex: 100,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "16px",
-            }}
-            onClick={() => setLoginOpen(false)}
-          >
-            <div
-              className="store-cart-sheet"
-              style={{
-                width: "100%",
-                maxWidth: "380px",
-                padding: "28px",
-                borderRadius: "4px",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="store-cart-head">
-                <h2>Вхід в акаунт</h2>
-                <button
-                  type="button"
-                  className="store-close"
-                  aria-label="Закрити"
-                  onClick={() => setLoginOpen(false)}
-                >
-                  ×
-                </button>
-              </div>
-              <form className="store-checkout" onSubmit={handleLogin}>
-                <label>
-                  Логін або Email
-                  <input name="username" required />
-                </label>
-                <label>
-                  Пароль
-                  <input name="password" type="password" required />
-                </label>
-                <button
-                  className="store-button store-button-dark"
-                  type="submit"
-                >
-                  Увійти
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
       </div>
     </StoreContext.Provider>
   );
 }
 
 function StoreHeader() {
-  const { cart, openCart, user, openLogin, logout } = useStorefront();
+  const { cart, openCart } = useStorefront();
   const { pathname } = useLocation();
   const isHome = pathname === "/";
+  const savedUser = localStorage.getItem("superFurnUser") || "Роман Сушко";
 
   return (
     <header className="store-header">
@@ -415,19 +409,13 @@ function StoreHeader() {
             className="store-cart-trigger"
             type="button"
             onClick={openCart}
-            aria-label={`Ваш кошик, ${cart?.length || 0} товарів`}
+            aria-label={`Ваш кошик, ${cart.length} товарів`}
           >
-            Кошик <span>{cart?.length || 0}</span>
+            Кошик <span>{cart.length}</span>
           </button>
-          {user ? (
-            <button className="store-account" type="button" onClick={logout}>
-              {user} (Вийти)
-            </button>
-          ) : (
-            <button className="store-account" type="button" onClick={openLogin}>
-              Вхід
-            </button>
-          )}
+          <Link className="store-account" to="/profile">
+            {savedUser}
+          </Link>
         </div>
       </div>
     </header>
@@ -534,18 +522,13 @@ export function StoreCatalog() {
           Знайти своє натхнення <span aria-hidden="true">↗</span>
         </Link>
       </div>
-      <div
-        className="catalog-filters"
-        role="group"
-        aria-label="Фільтр за категорією"
-      >
+      <div className="catalog-filters" role="group">
         {categories.map((item) => (
           <button
             className={category === item ? "selected" : ""}
             key={item}
             type="button"
             onClick={() => setCategory(item)}
-            aria-pressed={category === item}
           >
             {item}
           </button>
@@ -571,7 +554,6 @@ export function StoreCatalog() {
                     addToCart(product);
                     openCart();
                   }}
-                  aria-label={`${inCart ? "У кошику" : "Додати у кошик"}: ${product.title}`}
                 >
                   {inCart ? "У кошику" : "+"}
                 </button>
@@ -605,7 +587,7 @@ export function StoreInspiration() {
         <h1>Ідеї для дому</h1>
         <p>Дім складається з деталей. Знайди ті, що близькі тобі.</p>
       </section>
-      <section className="inspiration-grid" aria-label="Ідеї для інтер’єру">
+      <section className="inspiration-grid">
         {ideas.map((idea, index) => (
           <article
             className={`inspiration-card inspiration-card-${index + 1}`}
@@ -631,21 +613,302 @@ export function StoreInspiration() {
   );
 }
 
-export function StorefrontHomePage() {
-  return (
-    <StorefrontShell>
-      <StoreHero />
-      <StoreFeatures />
-      <StoreCatalog />
-    </StorefrontShell>
-  );
-}
+const defaultProfileSettings = {
+  phone: "+38 (099) 123-45-67",
+  address: "Болехівці, Львівська область",
+  payment: "cash",
+  orderUpdates: true,
+};
 
-export function StorefrontInspirationPage() {
+const paymentMethods = [
+  {
+    id: "cash",
+    title: "Готівкою при отриманні",
+    description: "Розрахунок з кур'єром після перевірки товару.",
+  },
+  {
+    id: "card-courier",
+    title: "Карткою кур'єру",
+    description: "Оплата через термінал під час доставки.",
+  },
+  {
+    id: "invoice",
+    title: "За рахунком",
+    description: "Для юридичних осіб. Рахунок надсилаємо на email.",
+  },
+];
+
+export function StoreProfile() {
+  const email = "romansushko17@gmail.com";
+  const displayName = "Роман Сушко";
+  const storageKey = `superFurnProfile:${email}`;
+
+  const [settings, setSettings] = useState(() => {
+    try {
+      const raw = window.localStorage.getItem(storageKey);
+      return raw
+        ? { ...defaultProfileSettings, ...JSON.parse(raw) }
+        : defaultProfileSettings;
+    } catch {
+      return defaultProfileSettings;
+    }
+  });
+
+  const [saved, setSaved] = useState(false);
+
+  function update(patch) {
+    setSettings((current) => ({ ...current, ...patch }));
+    setSaved(false);
+  }
+
+  function save(event) {
+    event.preventDefault();
+    window.localStorage.setItem(storageKey, JSON.stringify(settings));
+    setSaved(true);
+  }
+
   return (
-    <StorefrontShell>
-      <StoreInspiration />
-    </StorefrontShell>
+    <div
+      className="profile-page"
+      style={{
+        maxWidth: "1000px",
+        margin: "40px auto",
+        padding: "0 20px",
+        background: "#fff",
+      }}
+    >
+      <section className="profile-intro" style={{ marginBottom: "32px" }}>
+        <span className="store-eyebrow">ОСОБИСТИЙ КАБІНЕТ</span>
+        <h1 style={{ fontSize: "32px", fontFamily: "serif" }}>Профіль</h1>
+        <p style={{ color: "#666" }}>
+          Контакти, доставка та спосіб оплати в одному місці.
+        </p>
+      </section>
+      <div
+        className="profile-layout"
+        style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "32px" }}
+      >
+        <aside
+          className="profile-card"
+          style={{
+            padding: "24px",
+            border: "1px solid #dedbd4",
+            borderRadius: "8px",
+            background: "#fff",
+            textAlign: "center",
+            height: "fit-content",
+          }}
+        >
+          <span
+            className="profile-avatar"
+            style={{
+              width: "60px",
+              height: "60px",
+              borderRadius: "50%",
+              background: "#c49f60",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "24px",
+              fontWeight: "bold",
+              margin: "0 auto 16px auto",
+            }}
+          >
+            {displayName.charAt(0).toUpperCase()}
+          </span>
+          <h2 style={{ fontSize: "20px", margin: "0 0 8px 0" }}>
+            {displayName}
+          </h2>
+          <p style={{ color: "#666", fontSize: "14px", margin: "0 0 24px 0" }}>
+            {email}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              localStorage.removeItem("superFurnUser");
+              window.location.href = "/";
+            }}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "center",
+              padding: "10px 16px",
+              background: "#1c272e",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontWeight: "500",
+              fontSize: "14px",
+            }}
+          >
+            Вийти з акаунта
+          </button>
+        </aside>
+        <form
+          className="profile-form"
+          onSubmit={save}
+          style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+        >
+          <fieldset
+            style={{
+              border: "1px solid #dedbd4",
+              padding: "20px",
+              borderRadius: "8px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "16px",
+              background: "#fff",
+            }}
+          >
+            <legend style={{ fontWeight: "bold", padding: "0 8px" }}>
+              Контакти та доставка
+            </legend>
+            <label
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                fontSize: "14px",
+              }}
+            >
+              Номер телефону
+              <input
+                type="tel"
+                value={settings.phone}
+                onChange={(event) => update({ phone: event.target.value })}
+                style={{
+                  padding: "10px",
+                  border: "1px solid #dedbd4",
+                  borderRadius: "4px",
+                  background: "#fff",
+                }}
+              />
+            </label>
+            <label
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+                fontSize: "14px",
+              }}
+            >
+              Адреса доставки
+              <input
+                value={settings.address}
+                onChange={(event) => update({ address: event.target.value })}
+                style={{
+                  padding: "10px",
+                  border: "1px solid #dedbd4",
+                  borderRadius: "4px",
+                  background: "#fff",
+                }}
+              />
+            </label>
+          </fieldset>
+          <fieldset
+            style={{
+              border: "1px solid #dedbd4",
+              padding: "20px",
+              borderRadius: "8px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "12px",
+              background: "#fff",
+            }}
+          >
+            <legend style={{ fontWeight: "bold", padding: "0 8px" }}>
+              Спосіб оплати
+            </legend>
+            {paymentMethods.map((method) => (
+              <label
+                key={method.id}
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  alignItems: "flex-start",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  type="radio"
+                  name="payment"
+                  value={method.id}
+                  checked={settings.payment === method.id}
+                  onChange={() => update({ payment: method.id })}
+                  style={{ marginTop: "4px" }}
+                />
+                <span>
+                  <strong style={{ display: "block", fontSize: "14px" }}>
+                    {method.title}
+                  </strong>
+                  <small style={{ color: "#666", fontSize: "12px" }}>
+                    {method.description}
+                  </small>
+                </span>
+              </label>
+            ))}
+          </fieldset>
+          <fieldset
+            style={{
+              border: "1px solid #dedbd4",
+              padding: "20px",
+              borderRadius: "8px",
+              background: "#fff",
+            }}
+          >
+            <legend style={{ fontWeight: "bold", padding: "0 8px" }}>
+              Сповіщення
+            </legend>
+            <label
+              style={{
+                display: "flex",
+                gap: "10px",
+                alignItems: "center",
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={settings.orderUpdates}
+                onChange={(event) =>
+                  update({ orderUpdates: event.target.checked })
+                }
+              />
+              Надсилати статус замовлення на email
+            </label>
+          </fieldset>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <p style={{ color: "#2e7d32", fontSize: "14px", margin: 0 }}>
+              {saved ? "Зміни збережено на цьому пристрої." : ""}
+            </p>
+            <button
+              type="submit"
+              style={{
+                padding: "10px 20px",
+                background: "#1c272e",
+                color: "#fff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                fontSize: "14px",
+              }}
+            >
+              Зберегти зміни
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 
