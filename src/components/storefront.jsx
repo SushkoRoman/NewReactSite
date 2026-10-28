@@ -5,7 +5,8 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Link, useLocation } from "react-router";
+
+import { Link, useLocation } from "react-router-dom";
 import "./storefront.css";
 
 const products = [
@@ -395,14 +396,14 @@ function StoreHeader() {
           <Link className={isHome ? "active" : ""} to="/">
             Головна
           </Link>
-          <a href={isHome ? "#catalog" : "/#catalog"}>Каталог</a>
+          <Link to={isHome ? "#catalog" : "/#catalog"}>Каталог</Link>
           <Link
             className={pathname === "/inspiration" ? "active" : ""}
             to="/inspiration"
           >
             Ідеї для дому
           </Link>
-          <a href={isHome ? "#contacts" : "/#contacts"}>Контакти</a>
+          <Link to={isHome ? "#contacts" : "/#contacts"}>Контакти</Link>
         </nav>
         <div className="store-header-actions">
           <button
@@ -597,9 +598,9 @@ export function StoreInspiration() {
             <div>
               <span>{idea.category}</span>
               <h2>{idea.title}</h2>
-              <a href="/#catalog">
+              <Link to="/#catalog">
                 Переглянути каталог <span aria-hidden="true">↗</span>
-              </a>
+              </Link>
             </div>
           </article>
         ))}
