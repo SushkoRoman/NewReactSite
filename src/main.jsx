@@ -44,11 +44,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </StorefrontShell>
           }
         />
-        
+
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/sign-in" element={<LoginPage />} />
-        
-        
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

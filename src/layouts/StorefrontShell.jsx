@@ -142,7 +142,13 @@ export default function StorefrontShell({ children }) {
               >
                 Контакти
               </Link>
-             <Link to="/catalog" style={{ color: "#fff", textDecoration: "none" }}> Каталог</Link>
+              <Link
+                to="/catalog"
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                {" "}
+                Каталог
+              </Link>
             </nav>
 
             <div

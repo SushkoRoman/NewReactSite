@@ -404,18 +404,14 @@ function StoreHeader() {
           <Link className={isHome ? styles.active : ""} to="/">
             Головна
           </Link>
-          <Link to={isHome ? "#catalog" : "/#catalog"}>
-            Каталог
-          </Link>
+          <Link to={isHome ? "#catalog" : "/#catalog"}>Каталог</Link>
           <Link
             className={pathname === "/inspiration" ? styles.active : ""}
             to="/inspiration"
           >
             Ідеї для дому
           </Link>
-          <Link to={isHome ? "#contacts" : "/#contacts"}>
-            Контакти
-          </Link>
+          <Link to={isHome ? "#contacts" : "/#contacts"}>Контакти</Link>
         </nav>
         <div className={styles["store-header-actions"]}>
           <button
