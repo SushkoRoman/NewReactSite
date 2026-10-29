@@ -400,19 +400,21 @@ function StoreHeader() {
             Super<span className={styles["logo-gold"]}>Furn</span>
           </span>
         </Link>
-        <nav className={styles["store-nav"]} aria-label="Основна навігація">
-          <Link className={isHome ? styles.active : ""} to="/">
-            Головна
-          </Link>
-          <Link to={isHome ? "#catalog" : "/#catalog"}>Каталог</Link>
-          <Link
-            className={pathname === "/inspiration" ? styles.active : ""}
-            to="/inspiration"
-          >
-            Ідеї для дому
-          </Link>
-          <Link to={isHome ? "#contacts" : "/#contacts"}>Контакти</Link>
-        </nav>
+         <nav className={styles["store-nav"]} aria-label="Основна навігація">
+        <Link className={pathname === "/" ? styles.active : ""} to="/">
+          Головна
+        </Link>
+        <Link className={pathname === "/catalog" ? styles.active : ""} to="/catalog">
+          Каталог
+        </Link>
+        <Link
+          className={pathname === "/inspiration" ? styles.active : ""}
+          to="/inspiration"
+        >
+          Ідеї для дому
+        </Link>
+        <Link to={isHome ? "#contacts" : "/#contacts"}>Контакти</Link>
+      </nav>
         <div className={styles["store-header-actions"]}>
           <button
             className={styles["store-cart-trigger"]}
@@ -474,7 +476,7 @@ export function StoreHero() {
         </p>
         <Link
           className={`${styles["store-button"]} ${styles["store-button-gold"]}`}
-          to="#catalog"
+          to="catalog"
         >
           Переглянути каталог <span aria-hidden="true">↗</span>
         </Link>
@@ -611,7 +613,7 @@ export function StoreInspiration() {
             <div>
               <span>{idea.category}</span>
               <h2>{idea.title}</h2>
-              <Link to="/#catalog">
+              <Link to="/catalog">
                 Переглянути каталог <span aria-hidden="true">↗</span>
               </Link>
             </div>
@@ -619,7 +621,7 @@ export function StoreInspiration() {
         ))}
       </section>
       <div className={styles["inspiration-back"]}>
-        <Link to="/#catalog">
+        <Link to="/catalog">
           До каталогу <span aria-hidden="true">↗</span>
         </Link>
       </div>
