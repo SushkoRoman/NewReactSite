@@ -124,7 +124,9 @@
   padding: 8px 10px;
   border: 1px solid transparent;
   border-radius: 3px;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 .store-cart-trigger:hover {
   border-color: #dedbd4;
@@ -216,7 +218,10 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 .store-button:hover {
   transform: translateY(-2px);
@@ -270,7 +275,9 @@
 }
 .store-features h2 {
   margin: 10px 0 5px;
-  font: 600 16px Manrope, sans-serif;
+  font:
+    600 16px Manrope,
+    sans-serif;
 }
 .store-features p {
   margin: 0;
@@ -303,7 +310,9 @@
 }
 .catalog-heading h2 {
   margin: 0;
-  font: 500 clamp(32px, 4vw, 48px) Manrope, sans-serif;
+  font:
+    500 clamp(32px, 4vw, 48px) Manrope,
+    sans-serif;
   letter-spacing: -0.055em;
 }
 .catalog-heading a,
@@ -391,7 +400,9 @@
 }
 .product-info h3 {
   margin: 0 0 7px;
-  font: 600 14px Manrope, sans-serif;
+  font:
+    600 14px Manrope,
+    sans-serif;
 }
 .product-info p {
   margin: 0;
@@ -432,13 +443,17 @@
 .store-footer h2 {
   margin: 0 0 12px;
   color: #fff;
-  font: 800 21px Manrope, sans-serif;
+  font:
+    800 21px Manrope,
+    sans-serif;
   letter-spacing: -0.04em;
 }
 .store-footer h3 {
   margin: 0 0 17px;
   color: #fff;
-  font: 600 12px Manrope, sans-serif;
+  font:
+    600 12px Manrope,
+    sans-serif;
 }
 .store-footer p {
   margin: 0 0 8px;
@@ -498,7 +513,9 @@
   font-size: 12px;
 }
 .checkout-total strong {
-  font: 700 17px Manrope, sans-serif;
+  font:
+    700 17px Manrope,
+    sans-serif;
 }
 .text-button {
   border: 0;
@@ -523,7 +540,9 @@
 }
 .inspiration-intro h1 {
   margin: 15px 0 8px;
-  font: 500 clamp(40px, 6vw, 64px) Manrope, sans-serif;
+  font:
+    500 clamp(40px, 6vw, 64px) Manrope,
+    sans-serif;
   letter-spacing: -0.06em;
 }
 .inspiration-intro p {
@@ -582,7 +601,9 @@
 .inspiration-card h2 {
   margin: 8px 0 14px;
   color: white;
-  font: 500 24px Manrope, sans-serif;
+  font:
+    500 24px Manrope,
+    sans-serif;
   letter-spacing: -0.035em;
 }
 .inspiration-card a {

@@ -28,8 +28,6 @@ export default function StorefrontShell({ children }) {
     paymentMethod: "card",
   });
 
-
-
   useEffect(() => {
     const savedUser = localStorage.getItem("superFurnUser");
     if (savedUser) {

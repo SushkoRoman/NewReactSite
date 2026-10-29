@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import { Link, useLocation } from "react-router";
 
-
 const products = [
   {
     id: 1,
@@ -227,7 +226,10 @@ export function StorefrontShell({ children }) {
                   </button>
                 </div>
               ) : checkout ? (
-                <form className={styles["store-checkout"]} onSubmit={submitOrder}>
+                <form
+                  className={styles["store-checkout"]}
+                  onSubmit={submitOrder}
+                >
                   <label>
                     Ім'я та Прізвище
                     <input name="name" autoComplete="name" required />
@@ -253,7 +255,9 @@ export function StorefrontShell({ children }) {
                     <span>Разом</span>
                     <strong>{formatPrice(total)}</strong>
                   </div>
-                  <p className={styles["checkout-note"]}>Оплата при отриманні</p>
+                  <p className={styles["checkout-note"]}>
+                    Оплата при отриманні
+                  </p>
                   <button
                     className={`${styles["store-button"]} ${styles["store-button-dark"]}`}
                     type="submit"
@@ -386,7 +390,11 @@ function StoreHeader() {
   return (
     <header className={styles["store-header"]}>
       <div className={styles["store-header-inner"]}>
-        <Link className={styles["store-logo"]} to="/" aria-label="SuperFurn — Головна">
+        <Link
+          className={styles["store-logo"]}
+          to="/"
+          aria-label="SuperFurn — Головна"
+        >
           <span className={styles["store-logo-mark"]}>S</span>
           <span>
             Super<span className={styles["logo-gold"]}>Furn</span>
@@ -464,7 +472,10 @@ export function StoreHero() {
         <p className={styles["store-hero-copy"]}>
           Нова колекція меблів 2026. Естетика, комфорт та натуральні матеріали.
         </p>
-        <a className={`${styles["store-button"]} ${styles["store-button-gold"]}`} href="#catalog">
+        <a
+          className={`${styles["store-button"]} ${styles["store-button-gold"]}`}
+          href="#catalog"
+        >
           Переглянути каталог <span aria-hidden="true">↗</span>
         </a>
       </div>
@@ -542,7 +553,9 @@ export function StoreCatalog() {
             <article className={styles["store-product"]} key={product.id}>
               <div className={styles["product-image-wrap"]}>
                 <img src={product.image} alt={product.title} loading="lazy" />
-                <span className={styles["product-category"]}>{product.category}</span>
+                <span className={styles["product-category"]}>
+                  {product.category}
+                </span>
               </div>
               <div className={styles["product-info"]}>
                 <div>
@@ -678,7 +691,10 @@ export function StoreProfile() {
         background: "#fff",
       }}
     >
-      <section className={styles["profile-intro"]} style={{ marginBottom: "32px" }}>
+      <section
+        className={styles["profile-intro"]}
+        style={{ marginBottom: "32px" }}
+      >
         <span className={styles["store-eyebrow"]}>ОСОБИСТИЙ КАБІНЕТ</span>
         <h1 style={{ fontSize: "32px", fontFamily: "serif" }}>Профіль</h1>
         <p style={{ color: "#666" }}>
