@@ -1,3 +1,4 @@
+import styles from "./storefront.module.css";
 import React, {
   createContext,
   useContext,
@@ -6,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { Link, useLocation } from "react-router";
-import "./storefront.css";
+
 
 const products = [
   {
@@ -133,7 +134,7 @@ export function StorefrontShell({ children }) {
 
   return (
     <StoreContext.Provider value={value}>
-      <div className="storefront">
+      <div className={styles.storefront}>
         <StoreHeader />
         <main>{children}</main>
         <StoreFooter />
@@ -215,7 +216,7 @@ export function StorefrontShell({ children }) {
                   <h3>Дякуємо за замовлення</h3>
                   <p>До сплати: {formatPrice(orderTotal)}</p>
                   <button
-                    className="store-button store-button-dark"
+                    className={`${styles["store-button"]} ${styles["store-button-dark"]}`}
                     type="button"
                     onClick={() => {
                       setCartOpen(false);
@@ -226,7 +227,7 @@ export function StorefrontShell({ children }) {
                   </button>
                 </div>
               ) : checkout ? (
-                <form className="store-checkout" onSubmit={submitOrder}>
+                <form className={styles["store-checkout"]} onSubmit={submitOrder}>
                   <label>
                     Ім'я та Прізвище
                     <input name="name" autoComplete="name" required />
@@ -248,19 +249,19 @@ export function StorefrontShell({ children }) {
                       required
                     />
                   </label>
-                  <div className="checkout-total">
+                  <div className={styles["checkout-total"]}>
                     <span>Разом</span>
                     <strong>{formatPrice(total)}</strong>
                   </div>
-                  <p className="checkout-note">Оплата при отриманні</p>
+                  <p className={styles["checkout-note"]}>Оплата при отриманні</p>
                   <button
-                    className="store-button store-button-dark"
+                    className={`${styles["store-button"]} ${styles["store-button-dark"]}`}
                     type="submit"
                   >
                     Підтвердити замовлення
                   </button>
                   <button
-                    className="text-button"
+                    className={styles["text-button"]}
                     type="button"
                     onClick={() => setCheckout(false)}
                   >
@@ -271,7 +272,7 @@ export function StorefrontShell({ children }) {
                 <div style={{ textAlign: "center", marginTop: "40px" }}>
                   <p style={{ color: "#666" }}>Кошик порожній</p>
                   <button
-                    className="store-button store-button-dark"
+                    className={`${styles["store-button"]} ${styles["store-button-dark"]}`}
                     type="button"
                     onClick={() => setCartOpen(false)}
                   >
@@ -359,7 +360,7 @@ export function StorefrontShell({ children }) {
                       <strong>{formatPrice(total)}</strong>
                     </div>
                     <button
-                      className="store-button store-button-dark"
+                      className={`${styles["store-button"]} ${styles["store-button-dark"]}`}
                       type="button"
                       onClick={() => setCheckout(true)}
                     >
@@ -383,37 +384,37 @@ function StoreHeader() {
   const savedUser = localStorage.getItem("superFurnUser") || "Роман Сушко";
 
   return (
-    <header className="store-header">
-      <div className="store-header-inner">
-        <Link className="store-logo" to="/" aria-label="SuperFurn — Головна">
-          <span className="store-logo-mark">S</span>
+    <header className={styles["store-header"]}>
+      <div className={styles["store-header-inner"]}>
+        <Link className={styles["store-logo"]} to="/" aria-label="SuperFurn — Головна">
+          <span className={styles["store-logo-mark"]}>S</span>
           <span>
-            Super<span className="logo-gold">Furn</span>
+            Super<span className={styles["logo-gold"]}>Furn</span>
           </span>
         </Link>
-        <nav className="store-nav" aria-label="Основна навігація">
-          <Link className={isHome ? "active" : ""} to="/">
+        <nav className={styles["store-nav"]} aria-label="Основна навігація">
+          <Link className={isHome ? styles.active : ""} to="/">
             Головна
           </Link>
           <a href={isHome ? "#catalog" : "/#catalog"}>Каталог</a>
           <Link
-            className={pathname === "/inspiration" ? "active" : ""}
+            className={pathname === "/inspiration" ? styles.active : ""}
             to="/inspiration"
           >
             Ідеї для дому
           </Link>
           <a href={isHome ? "#contacts" : "/#contacts"}>Контакти</a>
         </nav>
-        <div className="store-header-actions">
+        <div className={styles["store-header-actions"]}>
           <button
-            className="store-cart-trigger"
+            className={styles["store-cart-trigger"]}
             type="button"
             onClick={openCart}
             aria-label={`Ваш кошик, ${cart.length} товарів`}
           >
             Кошик <span>{cart.length}</span>
           </button>
-          <Link className="store-account" to="/profile">
+          <Link className={styles["store-account"]} to="/profile">
             {savedUser}
           </Link>
         </div>
@@ -424,8 +425,8 @@ function StoreHeader() {
 
 function StoreFooter() {
   return (
-    <footer className="store-footer" id="contacts">
-      <div className="store-footer-inner">
+    <footer className={styles["store-footer"]} id="contacts">
+      <div className={styles["store-footer-inner"]}>
         <div>
           <h2>SuperFurn</h2>
           <p>Твій комфорт в наших руках.</p>
@@ -440,41 +441,41 @@ function StoreFooter() {
           <p>Болехівці, Дрогобицький район, Львівська область</p>
         </div>
       </div>
-      <div className="store-footer-bottom">SuperFurn</div>
+      <div className={styles["store-footer-bottom"]}>SuperFurn</div>
     </footer>
   );
 }
 
 export function StoreHero() {
   return (
-    <section className="store-hero" id="hero">
+    <section className={styles["store-hero"]} id="hero">
       <img
-        className="store-hero-image"
+        className={styles["store-hero-image"]}
         src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=2000&q=90"
         alt=""
       />
-      <div className="store-hero-shade" />
-      <div className="store-hero-content">
-        <p className="store-eyebrow">SuperFurn</p>
+      <div className={styles["store-hero-shade"]} />
+      <div className={styles["store-hero-content"]}>
+        <p className={styles["store-eyebrow"]}>SuperFurn</p>
         <h1>
           Твій дім —<br />
           твої правила
         </h1>
-        <p className="store-hero-copy">
+        <p className={styles["store-hero-copy"]}>
           Нова колекція меблів 2026. Естетика, комфорт та натуральні матеріали.
         </p>
-        <a className="store-button store-button-gold" href="#catalog">
+        <a className={`${styles["store-button"]} ${styles["store-button-gold"]}`} href="#catalog">
           Переглянути каталог <span aria-hidden="true">↗</span>
         </a>
       </div>
-      <span className="hero-side-note">2026 · HOME COLLECTION</span>
+      <span className={styles["hero-side-note"]}>2026 · HOME COLLECTION</span>
     </section>
   );
 }
 
 export function StoreFeatures() {
   return (
-    <section className="store-features" aria-label="Переваги">
+    <section className={styles["store-features"]} aria-label="Переваги">
       <div>
         <span>01</span>
         <h2>Швидка доставка</h2>
@@ -511,21 +512,21 @@ export function StoreCatalog() {
       : products.filter((product) => product.category === category);
 
   return (
-    <section className="store-catalog" id="catalog">
-      <div className="catalog-topline">
+    <section className={styles["store-catalog"]} id="catalog">
+      <div className={styles["catalog-topline"]}>
         <span>ВИБІР ДЛЯ ТВОГО ДОМУ</span>
         <span>01 — 06</span>
       </div>
-      <div className="catalog-heading">
+      <div className={styles["catalog-heading"]}>
         <h2>Наші Бестселери</h2>
         <Link to="/inspiration">
           Знайти своє натхнення <span aria-hidden="true">↗</span>
         </Link>
       </div>
-      <div className="catalog-filters" role="group">
+      <div className={styles["catalog-filters"]} role="group">
         {categories.map((item) => (
           <button
-            className={category === item ? "selected" : ""}
+            className={category === item ? styles.selected : ""}
             key={item}
             type="button"
             onClick={() => setCategory(item)}
@@ -534,16 +535,16 @@ export function StoreCatalog() {
           </button>
         ))}
       </div>
-      <div className="store-products">
+      <div className={styles["store-products"]}>
         {filteredProducts.map((product) => {
           const inCart = cart.some((item) => item.id === product.id);
           return (
-            <article className="store-product" key={product.id}>
-              <div className="product-image-wrap">
+            <article className={styles["store-product"]} key={product.id}>
+              <div className={styles["product-image-wrap"]}>
                 <img src={product.image} alt={product.title} loading="lazy" />
-                <span className="product-category">{product.category}</span>
+                <span className={styles["product-category"]}>{product.category}</span>
               </div>
-              <div className="product-info">
+              <div className={styles["product-info"]}>
                 <div>
                   <h3>{product.title}</h3>
                   <p>{formatPrice(product.price)}</p>
@@ -581,16 +582,16 @@ export function StoreInspiration() {
     { title: "М’яке світло", category: "Деталі", image: products[2].image },
   ];
   return (
-    <div className="inspiration-page">
-      <section className="inspiration-intro">
-        <span className="store-eyebrow">SUPERFURN JOURNAL</span>
+    <div className={styles["inspiration-page"]}>
+      <section className={styles["inspiration-intro"]}>
+        <span className={styles["store-eyebrow"]}>SUPERFURN JOURNAL</span>
         <h1>Ідеї для дому</h1>
         <p>Дім складається з деталей. Знайди ті, що близькі тобі.</p>
       </section>
-      <section className="inspiration-grid">
+      <section className={styles["inspiration-grid"]}>
         {ideas.map((idea, index) => (
           <article
-            className={`inspiration-card inspiration-card-${index + 1}`}
+            className={`${styles["inspiration-card"]} ${styles[`inspiration-card-${index + 1}`] || ""}`}
             key={idea.title}
           >
             <img src={idea.image} alt="" />
@@ -604,7 +605,7 @@ export function StoreInspiration() {
           </article>
         ))}
       </section>
-      <div className="inspiration-back">
+      <div className={styles["inspiration-back"]}>
         <Link to="/#catalog">
           До каталогу <span aria-hidden="true">↗</span>
         </Link>
@@ -669,7 +670,7 @@ export function StoreProfile() {
 
   return (
     <div
-      className="profile-page"
+      className={styles["profile-page"]}
       style={{
         maxWidth: "1000px",
         margin: "40px auto",
@@ -677,19 +678,19 @@ export function StoreProfile() {
         background: "#fff",
       }}
     >
-      <section className="profile-intro" style={{ marginBottom: "32px" }}>
-        <span className="store-eyebrow">ОСОБИСТИЙ КАБІНЕТ</span>
+      <section className={styles["profile-intro"]} style={{ marginBottom: "32px" }}>
+        <span className={styles["store-eyebrow"]}>ОСОБИСТИЙ КАБІНЕТ</span>
         <h1 style={{ fontSize: "32px", fontFamily: "serif" }}>Профіль</h1>
         <p style={{ color: "#666" }}>
           Контакти, доставка та спосіб оплати в одному місці.
         </p>
       </section>
       <div
-        className="profile-layout"
+        className={styles["profile-layout"]}
         style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "32px" }}
       >
         <aside
-          className="profile-card"
+          className={styles["profile-card"]}
           style={{
             padding: "24px",
             border: "1px solid #dedbd4",
@@ -700,7 +701,7 @@ export function StoreProfile() {
           }}
         >
           <span
-            className="profile-avatar"
+            className={styles["profile-avatar"]}
             style={{
               width: "60px",
               height: "60px",
@@ -747,7 +748,7 @@ export function StoreProfile() {
           </button>
         </aside>
         <form
-          className="profile-form"
+          className={styles["profile-form"]}
           onSubmit={save}
           style={{ display: "flex", flexDirection: "column", gap: "24px" }}
         >
