@@ -1,4 +1,5 @@
 import React from "react";
+import "./global.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import {
@@ -8,6 +9,8 @@ import {
   StoreCatalog,
   StoreInspiration,
 } from "./components/storefront";
+import ProfilePage from "./pages/ProfilePage";
+import LoginPage from "./pages/LoginPage";
 import "./global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -32,6 +35,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </StorefrontShell>
           }
         />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/sign-in" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
