@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 
 const products = [
   {
@@ -404,14 +404,18 @@ function StoreHeader() {
           <Link className={isHome ? styles.active : ""} to="/">
             Головна
           </Link>
-          <a href={isHome ? "#catalog" : "/#catalog"}>Каталог</a>
+          <Link to={isHome ? "#catalog" : "/#catalog"}>
+            Каталог
+          </Link>
           <Link
             className={pathname === "/inspiration" ? styles.active : ""}
             to="/inspiration"
           >
             Ідеї для дому
           </Link>
-          <a href={isHome ? "#contacts" : "/#contacts"}>Контакти</a>
+          <Link to={isHome ? "#contacts" : "/#contacts"}>
+            Контакти
+          </Link>
         </nav>
         <div className={styles["store-header-actions"]}>
           <button
@@ -472,12 +476,12 @@ export function StoreHero() {
         <p className={styles["store-hero-copy"]}>
           Нова колекція меблів 2026. Естетика, комфорт та натуральні матеріали.
         </p>
-        <a
+        <Link
           className={`${styles["store-button"]} ${styles["store-button-gold"]}`}
-          href="#catalog"
+          to="#catalog"
         >
           Переглянути каталог <span aria-hidden="true">↗</span>
-        </a>
+        </Link>
       </div>
       <span className={styles["hero-side-note"]}>2026 · HOME COLLECTION</span>
     </section>
@@ -611,9 +615,9 @@ export function StoreInspiration() {
             <div>
               <span>{idea.category}</span>
               <h2>{idea.title}</h2>
-              <a href="/#catalog">
+              <Link to="/#catalog">
                 Переглянути каталог <span aria-hidden="true">↗</span>
-              </a>
+              </Link>
             </div>
           </article>
         ))}
