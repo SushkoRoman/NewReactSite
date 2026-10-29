@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 
 export function formatPrice(price) {
   return `${price.toLocaleString("uk-UA")} ₴`;
@@ -136,12 +136,19 @@ export default function StorefrontShell({ children }) {
               >
                 Натхнення
               </Link>
-              <a
-                href="/#catalog"
+              <Link
+                to="/#contacts"
                 style={{ color: "#fff", textDecoration: "none" }}
               >
+                Контакти
+              </Link>
+              <Link
+                to="/catalog"
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                {" "}
                 Каталог
-              </a>
+              </Link>
             </nav>
 
             <div

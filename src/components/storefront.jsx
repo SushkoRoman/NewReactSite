@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 
 const products = [
   {
@@ -400,19 +400,21 @@ function StoreHeader() {
             Super<span className={styles["logo-gold"]}>Furn</span>
           </span>
         </Link>
-        <nav className={styles["store-nav"]} aria-label="Основна навігація">
-          <Link className={isHome ? styles.active : ""} to="/">
-            Головна
-          </Link>
-          <a href={isHome ? "#catalog" : "/#catalog"}>Каталог</a>
-          <Link
-            className={pathname === "/inspiration" ? styles.active : ""}
-            to="/inspiration"
-          >
-            Ідеї для дому
-          </Link>
-          <a href={isHome ? "#contacts" : "/#contacts"}>Контакти</a>
-        </nav>
+         <nav className={styles["store-nav"]} aria-label="Основна навігація">
+        <Link className={pathname === "/" ? styles.active : ""} to="/">
+          Головна
+        </Link>
+        <Link className={pathname === "/catalog" ? styles.active : ""} to="/catalog">
+          Каталог
+        </Link>
+        <Link
+          className={pathname === "/inspiration" ? styles.active : ""}
+          to="/inspiration"
+        >
+          Ідеї для дому
+        </Link>
+        <Link to={isHome ? "#contacts" : "/#contacts"}>Контакти</Link>
+      </nav>
         <div className={styles["store-header-actions"]}>
           <button
             className={styles["store-cart-trigger"]}
@@ -472,12 +474,12 @@ export function StoreHero() {
         <p className={styles["store-hero-copy"]}>
           Нова колекція меблів 2026. Естетика, комфорт та натуральні матеріали.
         </p>
-        <a
+        <Link
           className={`${styles["store-button"]} ${styles["store-button-gold"]}`}
-          href="#catalog"
+          to="catalog"
         >
           Переглянути каталог <span aria-hidden="true">↗</span>
-        </a>
+        </Link>
       </div>
       <span className={styles["hero-side-note"]}>2026 · HOME COLLECTION</span>
     </section>
@@ -611,15 +613,15 @@ export function StoreInspiration() {
             <div>
               <span>{idea.category}</span>
               <h2>{idea.title}</h2>
-              <a href="/#catalog">
+              <Link to="/catalog">
                 Переглянути каталог <span aria-hidden="true">↗</span>
-              </a>
+              </Link>
             </div>
           </article>
         ))}
       </section>
       <div className={styles["inspiration-back"]}>
-        <Link to="/#catalog">
+        <Link to="/catalog">
           До каталогу <span aria-hidden="true">↗</span>
         </Link>
       </div>

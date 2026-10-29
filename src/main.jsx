@@ -1,7 +1,8 @@
 import React from "react";
-import "./global.css";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./global.css";
+
 import {
   StorefrontShell,
   StoreHero,
@@ -11,7 +12,7 @@ import {
 } from "./components/storefront";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
-import "./global.css";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -35,8 +36,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </StorefrontShell>
           }
         />
+        <Route
+          path="/catalog"
+          element={
+            <StorefrontShell>
+              <StoreCatalog />
+            </StorefrontShell>
+          }
+        />
+
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/sign-in" element={<LoginPage />} />
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
