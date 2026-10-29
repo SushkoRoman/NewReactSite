@@ -36,6 +36,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </StorefrontShell>
           }
         />
+        <Route
+          path="/catalog"
+          element={
+            <StorefrontShell>
+              <StoreCatalog />
+            </StorefrontShell>
+          }
+        />
+        
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/sign-in" element={<LoginPage />} />
         
